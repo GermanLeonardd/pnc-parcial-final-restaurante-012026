@@ -1,3 +1,31 @@
+server:
+  port: 8080
+
 spring:
   application:
     name: pnc-parcial-final-restaurante
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:pedidos_db}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+jwt:
+  secret: ${JWT_SECRET:cambia_esta_clave_secreta_por_una_muy_larga_y_segura_1234567890}
+  access-token-expiration-ms: ${JWT_ACCESS_EXPIRATION:900000}      # 15 minutos
+  refresh-token-expiration-ms: ${JWT_REFRESH_EXPIRATION:604800000} # 7 días
+
+logging:
+  level:
+    org.springframework.security: INFO
+    com.uca.pncparcialfinalrestaurante: DEBUG
