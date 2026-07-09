@@ -135,6 +135,12 @@ public class PedidoService {
                 .orElseThrow(() -> new ResourceNotFoundException("Pedido no encontrado con id: " + id));
     }
 
+    public PedidoResponse obtenerConValidacion(Long id, UserDetailsImpl usuarioAutenticado) {
+        Pedido pedido = buscarPorId(id);
+        validarAccesoSegunRol(pedido, usuarioAutenticado);
+        return toResponse(pedido);
+    }
+
     private PedidoResponse toResponse(Pedido p) {
         List<ItemPedidoResponse> items = p.getDetalles().stream()
                 .map(d -> new ItemPedidoResponse(
